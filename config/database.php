@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Str;
 
+$passwordToken = env('DB_PASSWORD_TOKEN');
+if (str_starts_with($passwordToken, 'file:')) {
+    $dbPassword = trim(file_get_contents(base_path(substr($passwordToken, 5))));
+} else {
+    $dbPassword = $passwordToken;
+};
+
 return [
 
     /*
@@ -16,7 +23,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'sqlite'),
+    'default' => env('DB_CONNECTION', 'sqlsrv'),
 
     /*
     |--------------------------------------------------------------------------
@@ -104,7 +111,7 @@ return [
             'port' => env('DB_PORT', '1433'),
             'database' => env('DB_DATABASE', 'laravel'),
             'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
+            'password' => $dbPassword,
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
