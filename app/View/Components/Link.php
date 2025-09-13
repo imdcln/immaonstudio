@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class InputField extends Component
+class link extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class InputField extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.input-field');
+        return view('components.link');
     }
 }

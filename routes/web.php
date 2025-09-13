@@ -1,17 +1,17 @@
 <?php
-
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::name('signup.')->group( function() {
-    Route::get('/signup', [AuthController::class, 'step1'])->name('step1');
-    Route::get
-}
-);
+// Landing
+Route::get('/', [LandingController::class, 'index'])->name('landing');
+Route::get('/about', [LandingController::class, 'about'])->name('about');
+Route::get('/contact', [LandingController::class, 'contact'])->name('contact');
 
 
+// Auth
+Route::get('/signup', [AuthController::class, 'signup'])->name('signup');
+Route::post('/signup', [AuthController::class, 'signupPost'])->name('signup.post');
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'loginPost'])->name('login.post');
