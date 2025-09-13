@@ -1,12 +1,12 @@
 # ImmaOnStudio
 
-ImmaOnStudio is a website ....
+We present to you, ImmaOnStudio! ImmaOnStudio is a website where you can reserve SMK Immanuel Pontianak's Studio. We have just developed this website project for about 1 month. In this process, we want to create ImmaOnStudio as a website used for reserving studio effortlessly and effectively through the internet. Let alone, teachers (with admin role) also have the access to a dashboard to monitor and know the studio usages.
 
 ---
 
 ## List of Contents
 
--   [Main Features](#main-features)
+-   [Main Features (On Progress)](#main-features)
 -   [Installation](#installation)
 -   [Usage](#usage)
 -   [Arschitecture & Tech Stack](#architecture--tech-stack)
@@ -53,7 +53,7 @@ ImmaOnStudio is a website ....
     cp .env.example .env
     ```
 5. **Configure Database**
-    - Edit file `.env` dan sesuaikan pengaturan database Anda.
+    - Edit your copied `.env` file and configure your database.
 6. **Generate Application Key**
     ```bash
     php artisan key:generate
@@ -75,7 +75,24 @@ ImmaOnStudio is a website ....
 
 ## Usage
 
--
+### As User
+1. *Signup/Login*
+    - Create your account or log in to your account.
+2. *Reserve Studio*
+    - After logging in, you may reserve studio.
+3. *Pending*
+    - Wait for admin's action, whether to accept/decline your reservation.
+    - If accepted, your reservation will be scheduled and you may then proceed to use the studio.
+4. *Check Reservation List*
+    - You may check your reservation or others' reservation through the Reservation List Page.
+  
+### As Admin
+1. *Login*
+    - Log in to admin's account to go through dashboard.
+2. *Dashboard*
+    - Entering dashboard, there are many statistics/data that you may go through.
+    - Admins may have access to do CRUD based on their role permission given.
+
 
 ---
 
