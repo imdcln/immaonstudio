@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
     public function signup()
     {
-        return view('Auth.signup');
+        return view('auth.signup');
     }
 
     public function signupPost(Request $request)
@@ -29,43 +29,47 @@ class AuthController extends Controller
             'gender'     => 'nullable|in:male,female,other',
         ]);
 
-        // $user = User::create([
-        //     'username'   => $validated['username'],
-        //     'email'      => $validated['email'],
-        //     'password'   => Hash::make($validated['password']),
-        //     'first_name' => $validated['first_name'] ?? null,
-        //     'last_name'  => $validated['last_name'] ?? null,
-        //     'phone'      => $validated['phone'] ?? null,
-        //     'birth_date' => $validated['birth_date'] ?? null,
-        //     'position'   => $validated['position'] ?? null,
-        //     'gender'     => $validated['gender'] ?? null,
-        // ]);
-
-        // Auth::login($user);
-
         return redirect()->route('landing')->with('success', 'Account created successfully!');
     }
 
     public function login()
     {
-        return view('Auth.login');
+        return view('auth.login');
     }
 
     public function loginPost(Request $request)
     {
-        $credentials = $request->validate([
-            'email'    => 'required|email',
+        $request->validate([
+            'usn-email' => 'required|string',
             'password' => 'required|string|min:6',
         ]);
 
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
-            $request->session()->regenerate();
-            return redirect()->intended(route('landing'))
-                ->with('success', 'Welcome back!');
+        $user = User::where('username', $request->input('usn-email'))
+                    ->orWhere('email', $request->input('usn-email'))
+                    ->first();
+
+        if (!$user) {
+            return back()->with('error', 'User not found.');
         }
 
-        return back()->withErrors([
-            'email' => 'Invalid credentials. Please try again.',
-        ])->onlyInput('email');
+        if (!Hash::check($request->password, $user->password)) {
+            return back()->with('error', 'Incorrect password, please try again.');
+        }
+
+        Auth::login($user, $request->filled('remember'));
+
+        $request->session()->regenerate();
+
+        return redirect()->route('home')->with('success', 'Welcome back, ' . $user->first_name . '!');
     }
+
+    public function logout(Request $request)
+{
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect()->route('landing')->with('success', 'You have been logged out.');
+}
+
 }

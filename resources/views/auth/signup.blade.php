@@ -1,8 +1,40 @@
 @extends('layouts.auth')
 
 @section('content')
+<x-button variant="tertiary" style="fill" padding="sm" href="{{ route('landing') }}" class="fixed lg:hidden top-10 left-10 z-50">
+    <svg xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor" 
+        stroke-width="2" 
+        class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" 
+            d="M9 15l-6-6 6-6M3 9h10a6 6 0 010 12h-3" />
+    </svg>
+</x-button>
+
 <div class="bg-white px-12 py-8 w-full lg:w-[65%] flex justify-center items-center">
-    <form action="{{ route('signup.post') }}" method="POST" class="w-full space-y-4" x-data="{ step: 1 }">
+    <form 
+        action="{{ route('signup.post') }}" 
+        method="POST" 
+        class="w-full space-y-4" 
+        x-data="{
+            step: 1,
+            form: {
+                username: '',
+                email: '',
+                password: ''
+            },
+            validateStep1() {
+                const emailValid = /^[^@]+@[^@]+\.[^@]+$/.test(this.form.email);
+                return (
+                    this.form.username.trim() !== '' &&
+                    emailValid &&
+                    this.form.password.trim().length >= 6
+                );
+            }
+        }"
+    >
         @csrf
 
         <!-- Step 1 -->
@@ -10,28 +42,34 @@
             <h2 class="text-center text-4xl font-bold">Get Started</h2>
             <p class="text-gray-500 mb-6 text-center">Join now and manage your studio schedule</p>
 
-            <x-input label="Username" name="username" placeholder="Username" x-model="username" required />
-            <x-input type="email" label="Email" name="email" placeholder="Email Address" x-model="email" required />
-            <x-input type="password" label="Password" name="password" placeholder="Password" x-model="password" required />
+            <x-input label="Username" name="username" placeholder="Username" x-model="form.username" required />
+            <x-input type="email" label="Email" name="email" placeholder="Email Address" x-model="form.email" required />
+            <x-input type="password" label="Password" name="password" placeholder="Password" x-model="form.password" required />
 
             <div class="flex items-center space-x-2 mt-1">
                 <input id="remember" type="checkbox" class="rounded text-blue-600" />
                 <label for="remember" class="text-sm">Remember Me</label>
             </div>
 
-            <p class="text-sm mb-1"> By signing up, you are creating an account, and you agree to our <a href="#" class="text-blue-600">Terms</a> and have read and acknowledge our <a href="#" class="text-blue-600">Global Privacy Statement</a>. </p>
+            <p class="text-sm mb-1">
+                By signing up, you are creating an account and you agree to our 
+                <a href="#" class="text-blue-600">Terms</a> and 
+                <a href="#" class="text-blue-600">Global Privacy Statement</a>.
+            </p>
 
+            <!-- Fixed Next Button -->
             <x-button 
                 type="button" 
                 variant="primary" 
-                class="w-full justify-center items-center" 
+                class="w-full justify-center items-center"
                 @click="
-                    if(username && email && password) {
-                        step = 2
+                    if (validateStep1()) {
+                        step = 2;
                     } else {
-                        alert('Please fill out all required fields before continuing.');
+                        alert('Please fill out all fields correctly before continuing.\n\nRequirements:\n- Username required\n- Valid email format\n- Password min. 6 characters');
                     }
-                ">
+                "
+            >
                 Next
             </x-button>
 
@@ -94,4 +132,3 @@
     </form>
 </div>
 @endsection
-

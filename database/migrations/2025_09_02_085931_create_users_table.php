@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('email_verified')->default(false);
             $table->string('phone_number')->nullable();
             $table->string('password');
+            $table->rememberToken();
             $table->foreignId('class_id')->nullable()->constrained('classes')->nullOnDelete();
             $table->foreignId('gender_id')->nullable()->constrained('genders')->nullOnDelete();
             $table->date('birth_date')->nullable();

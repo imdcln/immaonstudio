@@ -10,14 +10,4 @@ class LandingController extends Controller
     {
         return view('landing');
     }
-
-    public function about()
-    {
-        return view('about');
-    }
-
-    public function contact()
-    {
-        return view('contact');
-    }
 }

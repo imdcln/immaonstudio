@@ -1,9 +1,9 @@
-@extends('layouts.guest')
+@extends('layouts.app')
 
 @section('content')
 
 {{-- Hero Section --}}
-<div class="bg-gradient-to-b from-white from-30% to-blue-600">
+<div class="px-6 bg-gradient-to-b from-white from-15% md:from-30% to-blue-600">
     <section class="text-center py-20">
     <h1 class="text-4xl md:text-5xl font-bold">
         Book Your School <span class="text-blue-600">Studio</span><br>
