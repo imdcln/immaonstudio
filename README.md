@@ -38,13 +38,13 @@ We present to you, ImmaOnStudio! ImmaOnStudio is a website where you can reserve
 1. **Clone Repository**
     ```bash
     git clone <repository-url>
-    cd gallerytest
+    cd immaonstudio
     ```
 2. **Install PHP Dependencies**
     ```bash
     composer install
     ```
-3. **Install Front-End Dependencies*
+3. **Install Front-End Dependencies**
     ```bash
     npm install
     ```
