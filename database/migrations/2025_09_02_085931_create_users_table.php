@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id')->constrained('roles')->onDelete('no action');
+            $table->foreignId('role_id')->default(1)->constrained('roles')->onDelete('no action');
             $table->string('username')->unique();
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('email')->unique();
             $table->boolean('email_verified')->default(false);
             $table->string('phone_number')->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreignId('class_id')->nullable()->constrained('classes')->nullOnDelete();
             $table->foreignId('gender_id')->nullable()->constrained('genders')->nullOnDelete();
             $table->date('birth_date')->nullable();
-            $table->string('profile_picture')->nullable();
+            $table->string('profile_picture')->default('default_profile_picture');
             $table->timestamps();
         });
 

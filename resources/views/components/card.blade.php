@@ -6,7 +6,11 @@
     'linkLabel' => null,
 ])
 
-<div class="rounded-2xl shadow-lg overflow-hidden bg-white dark:bg-gray-800">
+<div 
+    {{ $attributes->merge([
+        'class' => 'rounded-2xl shadow-lg overflow-hidden bg-white dark:bg-gray-800',
+    ]) }}
+>
     {{-- Image --}}
     @if ($image)
         <img src="{{ $image }}" alt="{{ $title }}" class="w-full h-48 object-cover">

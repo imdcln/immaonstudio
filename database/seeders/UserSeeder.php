@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
                 'class_id' => 12,
                 'gender_id' => 1,
                 'birth_date' => '2008-01-04',
-                'profile_picture' => null,
+                'profile_picture' => 'dcln04profile',
                 'email_verified' => true,
             ],
             [
@@ -38,7 +38,6 @@ class UserSeeder extends Seeder
                 'class_id' => 12,
                 'gender_id' => 1,
                 'birth_date' => '2008-08-08',
-                'profile_picture' => null,
                 'email_verified' => true,
             ],
             [
@@ -51,7 +50,6 @@ class UserSeeder extends Seeder
                 'class_id' => 12,
                 'gender_id' => 2,
                 'birth_date' => '2008-08-08',
-                'profile_picture' => null,
                 'email_verified' => true,
             ],
             [
@@ -64,7 +62,6 @@ class UserSeeder extends Seeder
                 'class_id' => 12,
                 'gender_id' => 2,
                 'birth_date' => '2008-08-08',
-                'profile_picture' => null,
                 'email_verified' => true,
             ],
             [
@@ -77,7 +74,6 @@ class UserSeeder extends Seeder
                 'class_id' => 12,
                 'gender_id' => 1,
                 'birth_date' => '2008-10-08',
-                'profile_picture' => null,
                 'email_verified' => false,
             ],
         ];

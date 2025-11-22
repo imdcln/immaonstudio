@@ -13,8 +13,28 @@
     </svg>
 </x-button>
 <div class="bg-white px-12 py-8 w-full lg:w-[65%] flex justify-center items-center ">
+    <form action="{{ route('login.post') }}" method="POST" class="w-full space-y-4"
+        x-data="{
+            form: {
+                usn_email: '',
+                password: ''
+            },
+            validateLogin() {
+                if (this.form.usn_email.trim() === '') 
+                    return 'Username/Email is required.';
 
-    <form action="{{ route('login.post') }}" method="POST" class="w-full space-y-4">
+                const isEmail = this.form.usn_email.includes('@');
+                if (isEmail) {
+                    const emailValid = /^[^@]+@[^@]+\.[^@]+$/.test(this.form.usn_email);
+                    if (!emailValid) return 'Please enter a valid email address.';
+                }
+
+                if (this.form.password.trim() === '') 
+                    return 'Password is required.';
+
+                return null;
+            }
+        }">
         @csrf
 
         <h2 class="text-center text-4xl font-bold">Welcome Back</h2>
@@ -24,27 +44,30 @@
             label="Username/Email" 
             name="usn-email" 
             placeholder="Username/Email" 
+            x-model="form.usn_email"
+            required
         />
-        @error('usn-email')
-            <p class="text-red-500 text-sm">{{ $message }}</p>
-        @enderror
 
         <x-input 
             type="password" 
             label="Password" 
-            name="password" 
+            name="password"
             placeholder="Password" 
+            x-model="form.password"
+            required
         />
-        @error('password')
-            <p class="text-red-500 text-sm">{{ $message }}</p>
-        @enderror
 
         <div class="flex items-center space-x-2">
             <input id="remember" type="checkbox" name="remember" class="rounded text-blue-600" />
             <label for="remember" class="text-sm">Remember Me</label>
         </div>
 
-        <x-button type="submit" variant="primary" style="fill" class="w-full justify-center items-center">
+        <x-button type="submit" variant="gradient" style="fill" class="w-full justify-center items-center"
+            @click.prevent="
+                const err = validateLogin();
+                if (!err) $el.closest('form').submit();
+                else popup(err, 'error');
+            ">
             Log In
         </x-button>
 

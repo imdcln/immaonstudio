@@ -11,15 +11,8 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id')
-                ->nullable()
-                ->constrained('roles')
-                ->onDelete('no action');
-
-            $table->foreignId('user_id')
-                ->nullable()
-                ->constrained('users')
-                ->onDelete('no action');
+            $table->foreignId('role_id')->nullable()->constrained('roles')->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
 
             $table->string('title');
             $table->text('message');

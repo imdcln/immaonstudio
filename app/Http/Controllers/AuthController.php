@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Gender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,25 +12,44 @@ class AuthController extends Controller
 {
     public function signup()
     {
-        return view('auth.signup');
+        $genders = Gender::all();
+        return view('auth.signup', compact('genders'));
     }
 
     public function signupPost(Request $request)
     {
-        $validated = $request->validate([
-            'username'   => 'required|string|max:255|unique:users,username',
-            'email'      => 'required|email|unique:users,email',
-            'password'   => 'required|string|min:6|confirmed',
-
-            'first_name' => 'nullable|string|max:255',
-            'last_name'  => 'nullable|string|max:255',
-            'phone'      => 'nullable|string|max:20',
-            'birth_date' => 'nullable|date',
-            'position'   => 'nullable|string|max:255',
-            'gender'     => 'nullable|in:male,female,other',
+        // STEP 1 validation — required
+        $validatedData = $request->validate([
+            'username' => 'required|string|max:255|unique:users,username',
+            'email'    => 'required|string|email|max:255|unique:users,email',
+            'password' => 'required|string|min:6|confirmed',
         ]);
 
-        return redirect()->route('landing')->with('success', 'Account created successfully!');
+        // STEP 2 (optional)
+        $additionalData = [
+            'first_name'   => $request->input('first_name'),
+            'last_name'    => $request->input('last_name'),
+            'phone_number' => $request->input('phone_number'),
+            'birth_date'   => $request->input('birth_date'),
+            'position'     => $request->input('position'),
+            'gender_id'    => $request->input('gender'),
+        ];
+
+        // Filter out null/empty optional fields
+        $additionalData = array_filter($additionalData, fn($value) => !is_null($value) && $value !== '');
+
+        // Combine validated + optional
+        $data = array_merge($validatedData, [
+            'password' => Hash::make($validatedData['password']),
+        ], $additionalData);
+
+        // Create user
+        $user = User::create($data);
+
+        // Auto login
+        Auth::login($user);
+
+        return redirect()->route('home')->with('success', 'Account created successfully!');
     }
 
     public function login()
@@ -69,7 +89,7 @@ class AuthController extends Controller
     $request->session()->invalidate();
     $request->session()->regenerateToken();
 
-    return redirect()->route('landing')->with('success', 'You have been logged out.');
+    return redirect()->route('landing');
 }
 
 }

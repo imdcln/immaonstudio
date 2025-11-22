@@ -18,6 +18,11 @@ class User extends Authenticatable
      * @var list<string>
      */
 
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
+
     protected $table = "users";
     protected $fillable = [
         'role_id',
@@ -42,6 +47,36 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function class()
+    {
+        return $this->belongsTo(Classroom::class, 'class_id');
+    }
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(ReservationReview::class);
+    }
 
     /**
      * Get the attributes that should be cast.

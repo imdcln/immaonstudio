@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Classes;
+use App\Models\Classroom;
 
 class ClassSeeder extends Seeder
 {
@@ -34,7 +34,7 @@ class ClassSeeder extends Seeder
         ];
 
         foreach ($classes as $class) {
-            Classes::create($class);
+            Classroom::create($class);
         }
     }
 }

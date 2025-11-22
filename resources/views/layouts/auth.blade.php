@@ -12,6 +12,10 @@
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 <body class="font-sans antialiased bg-white text-gray-900">
+
+    {{-- Popup Function --}}
+    @include('components.popup')
+
     <main>
         <div class="w-full max-h-screen min-h-screen flex shadow-xl overflow-hidden bg-white">
             <!-- Left Side -->
@@ -24,7 +28,7 @@
                     <h1 class="text-5xl font-extrabold leading-snug mt-6 mb-2">Simple,<br>Fast,<br>Organized</h1>
                 </div>
                 <div class="h-[47%] w-full flex items-center justify-center">
-                    <img src="{{ asset('images/illustration-1.png') }}" alt="Illustration" class="max-h-[250px] w-auto h-auto"/>
+                    <img src="{{ asset('images/illustration_1.png') }}" alt="Illustration" class="max-h-[250px] w-auto h-auto"/>
                 </div>
             </div>
 
