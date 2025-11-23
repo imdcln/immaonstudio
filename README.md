@@ -1,5 +1,10 @@
 # ImmaOnStudio
 
+![Laravel](https://img.shields.io/badge/Laravel-10-red)
+![PHP](https://img.shields.io/badge/PHP-8.1-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
+
 We present to you, ImmaOnStudio! ImmaOnStudio is a website where you can reserve SMK Immanuel Pontianak's Studio. We have just developed this website project for about 1 month. In this process, we want to create ImmaOnStudio as a website used for reserving studio effortlessly and effectively through the internet. Let alone, teachers (with admin role) also have the access to a dashboard to monitor and know the studio usages.
 
 ---
@@ -11,13 +16,14 @@ We present to you, ImmaOnStudio! ImmaOnStudio is a website where you can reserve
 -   [Usage](#usage)
 -   [Arschitecture & Tech Stack](#architecture--tech-stack)
 -   [Contributor](#contributor)
+-   [Contact](#contact)
 -   [License](#license)
 
 ---
 
 ## Main Features
 
--   Reserve SMK Immanuel Pontianak's Studio Globally and Effortlessly\
+-   Reserve SMK Immanuel Pontianak's Studio Globally and Effortlessly
 -   Prevent Reservation Schedule Collissions
 -   Visualize Studio Usage Systematically
 -   Help Teacher Admins to Monitor Studio Usage
@@ -100,7 +106,7 @@ We present to you, ImmaOnStudio! ImmaOnStudio is a website where you can reserve
 
 -   **Backend:** Laravel
 -   **Frontend:** Alpine.js, Tailwind CSS
--   **Database:** MSSQL
+-   **Database:** MSSQL/SQLSRV
 -   **Build Tool:** Vite
 
 ### Main Folder Structure
@@ -118,6 +124,14 @@ We present to you, ImmaOnStudio! ImmaOnStudio is a website where you can reserve
 -   **Jason Valentino Putra**: UI/UX Designer
 -   **Silviana Febrianti**: UI/UX Designer
 -   **Ying Er Aleitheia Fangidae**: UI/UX Designer
+
+---
+
+## Contact
+
+Project Lead: Declane Joseph Delvino  
+Email: declanecun@gmail.com  
+GitHub: https://github.com/imdcln
 
 ---
 
