@@ -23,9 +23,4 @@ class Reservation extends Model
     {
         return $this->hasMany(ReservationDetail::class);
     }
-
-    public function reviews()
-    {
-        return $this->hasMany(ReservationReview::class);
-    }
 }

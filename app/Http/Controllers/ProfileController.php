@@ -9,45 +9,29 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    /**
-     * Show public/profile page for the given user or current auth user.
-     *
-     * Route in your web.php already uses:
-     * Route::prefix('profile')->group(function () {
-     *     Route::get('/{user:username}', [ProfileController::class, 'index'])->name('profile');
-     * });
-     */
     public function index(User $user)
     {
-        // If route binding gives a user, show them, otherwise fallback to auth user
         $user = $user ?? Auth::user();
 
-        // Eager load relations (adjust relation names if different)
-        $user->load(['role', 'class', 'gender', 'reservations.details', 'reservations.status']);
+        $user->load(['role', 'class', 'gender']);
 
-        // Prepare reservations flattened with their detail row (if multiple details, we pick first for listing)
-        $reservations = $user->reservations()->with('details')->orderByDesc('created_at')->get();
+        $reservations = Reservation::with(['details', 'status'])
+            ->where('user_id', $user->id)
+            ->latest()
+            ->get();
 
         return view('profile.index', compact('user', 'reservations'));
     }
 
-    /**
-     * Optional: delete reservation (called from profile action button).
-     * Add a route for this if you want delete capability.
-     */
     public function destroyReservation(Request $request, User $user, Reservation $reservation)
     {
-        // $this->authorize('delete', $reservation);
-
         $reservation->delete();
-
         return back()->with('success', 'Reservation deleted.');
     }
 
     public function edit(User $user)
     {
         $user->load(['role', 'class', 'gender']);
-
         return view('profile.edit', compact('user'));
     }
 
@@ -63,7 +47,6 @@ class ProfileController extends Controller
             'profile_picture' => 'nullable|image|max:2048'
         ]);
 
-        // update user base info
         $user->update([
             'first_name' => $request->first_name,
             'last_name'  => $request->last_name,
@@ -73,7 +56,6 @@ class ProfileController extends Controller
             'birth_date' => $request->birth_date,
         ]);
 
-        // handle profile picture
         if ($request->hasFile('profile_picture')) {
             $path = $request->file('profile_picture')->store('profile_pictures', 'public');
             $user->update(['profile_picture' => $path]);

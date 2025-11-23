@@ -13,7 +13,7 @@ class ReservationDetail extends Model
         'reservation_date', 
         'start', 
         'end', 
-        'type_id', 
+        'total_participants',
         'descriptions'
     ];
 
@@ -26,10 +26,5 @@ class ReservationDetail extends Model
     public function reservation()
     {
         return $this->belongsTo(Reservation::class);
-    }
-
-    public function type()
-    {
-        return $this->belongsTo(ReservationType::class, 'type_id');
     }
 }

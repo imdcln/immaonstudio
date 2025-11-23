@@ -66,12 +66,6 @@ class ReservationController extends Controller
             return response()->json(['error' => 'Missing Pending status in DB'], 500);
         }
 
-        // Create or find the reservation type
-        $type = ReservationType::firstOrCreate(
-            ['name' => ucfirst($validated['userType'])],
-            ['name' => ucfirst($validated['userType'])]
-        );
-
         // Create the reservation (Pending)
         $reservation = Reservation::create([
             'user_id' => $user->id,
@@ -84,7 +78,7 @@ class ReservationController extends Controller
             'reservation_date' => $validated['date'],
             'start' => $validated['start'],
             'end' => $validated['end'],
-            'type_id' => $type->id,
+            'total_participants' => $validated['totalParticipants'],
             'descriptions' => $validated['description'],
         ]);
 

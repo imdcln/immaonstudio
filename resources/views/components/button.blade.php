@@ -18,11 +18,12 @@ $paddings = [
 $styles = [
     'primary' => [
         'fill' => "bg-blue-600 text-white hover:bg-blue-700 shadow-md",
+        'white' => "bg-white text-blue-600 hover:bg-blue-100 shadow-md",
         'outline' => "ring-1 ring-inset ring-blue-600 text-blue-600 bg-transparent hover:bg-blue-50 hover:shadow-md",
     ],
     'secondary' => [
-        'fill' => "bg-white text-blue-600 hover:bg-blue-100 shadow-md",
-        'outline' => "ring-1 ring-inset ring-blue-600 text-blue-600 bg-transparent hover:bg-red-50 hover:shadow-md",
+        'fill' => "bg-red-600 text-white hover:bg-red-700 shadow-md",
+        'outline' => "ring-1 ring-inset ring-red-600 text-red-600 bg-transparent hover:bg-red-50 hover:shadow-md",
     ],
     'tertiary' => [
         'fill' => "bg-black text-white hover:bg-gray-900 shadow-md",

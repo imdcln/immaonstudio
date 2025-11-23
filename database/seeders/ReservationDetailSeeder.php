@@ -19,7 +19,7 @@ class ReservationDetailSeeder extends Seeder
                 'reservation_date' => '2025-11-05',
                 'start' => '13:30:00',
                 'end' => '15:00:00',
-                'type_id' => 1,
+                'total_participants' => 1,
                 'descriptions' => 'Lorem Ipsum Dolor',
             ],
         ];

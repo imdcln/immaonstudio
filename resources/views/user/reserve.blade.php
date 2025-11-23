@@ -452,6 +452,7 @@ function calendarComponent() {
             this.form.end = '';
             this.disabledEndTimes = [];
             this.unavailableTimes = [];
+            this.updateEndTimeAvailability();
             this.fetchUnavailableTimes();
 
             
@@ -515,29 +516,29 @@ function calendarComponent() {
             String(this.selectedDate.getMonth() + 1).padStart(2, '0') + '-' +
             String(this.selectedDate.getDate()).padStart(2, '0');
 
-
             try {
                 const res = await fetch(`/available-times?date=${dateStr}`);
                 const data = await res.json();
 
                 if (!data.bookedTimes || data.bookedTimes.length === 0) {
                     this.unavailableTimes = [];
-                    return;
+                } else {
+                    const allTimes = this.timeSlots;
+                    const unavailable = [];
+
+                    data.bookedTimes.forEach(entry => {
+                        const startIdx = allTimes.indexOf(entry.start);
+                        const endIdx = allTimes.indexOf(entry.end);
+                        if (startIdx !== -1 && endIdx !== -1) {
+                            unavailable.push(...allTimes.slice(startIdx, endIdx));
+                        }
+                    });
+
+                    this.unavailableTimes = unavailable;
                 }
 
-                const allTimes = this.timeSlots;
-                const unavailable = [];
+                this.updateEndTimeAvailability();
 
-                data.bookedTimes.forEach(entry => {
-                    const startIdx = allTimes.indexOf(entry.start);
-                    const endIdx = allTimes.indexOf(entry.end);
-                    if (startIdx !== -1 && endIdx !== -1) {
-                        unavailable.push(...allTimes.slice(startIdx, endIdx));
-                    }
-                });
-
-                this.unavailableTimes = unavailable;
-                console.log("Unavailable times:", this.unavailableTimes); // 🧩 Debug check
             } catch (err) {
                 console.error("Error fetching times:", err);
                 this.unavailableTimes = [];

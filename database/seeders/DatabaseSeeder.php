@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             GenderSeeder::class,
             UserSeeder::class,
             ReservationStatusSeeder::class,
-            ReservationTypeSeeder::class,
             ReservationSeeder::class,
             ReservationDetailSeeder::class,
             ReviewSeeder::class,

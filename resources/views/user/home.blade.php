@@ -85,7 +85,7 @@ $reviewsToDisplay = $reviews ?? collect();
                     </p>
                 </div>
             </div>
-            <x-button variant="secondary" href="{{ route('reserveList') }}">
+            <x-button variant="primary" style="white" href="{{ route('reserveList') }}">
                 Reservation List →
             </x-button>
         </div>

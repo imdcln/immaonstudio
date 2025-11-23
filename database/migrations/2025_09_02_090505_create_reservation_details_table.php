@@ -14,7 +14,7 @@ return new class extends Migration
             $table->date('reservation_date');
             $table->time('start');
             $table->time('end');
-            $table->foreignId('type_id')->constrained('reservation_types')->onDelete('cascade');
+            $table->integer('total_participants');
             $table->text('descriptions')->nullable();
             $table->timestamps();
         });

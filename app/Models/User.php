@@ -75,7 +75,7 @@ class User extends Authenticatable
 
     public function reviews()
     {
-        return $this->hasMany(ReservationReview::class);
+        return $this->hasMany(Review::class);
     }
 
     /**
